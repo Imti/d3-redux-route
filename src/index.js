@@ -46,7 +46,9 @@ function getRouteThreeState() {
   ];
 }
 
+// pathname to circle data map
 const circleDataMap = {
+  '/': getInitialState(),
   '/one': getRouteOneState(),
   '/two': getRouteTwoState(),
   '/three': getRouteThreeState()
@@ -56,8 +58,8 @@ const circleDataMap = {
 function circleDataReducer(state = getInitialState(), action) {
   switch (action.type) {
     case UPDATE_LOCATION:
-      const route = action.payload.pathname;
-      return circleDataMap[route];
+      const { pathname } = action.payload;
+      return circleDataMap[pathname];
     default:
       return state;
   }

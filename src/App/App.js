@@ -16,6 +16,14 @@ class App extends Component {
     };
   }
 
+  componentWillMount() {
+    const { routing, dispatch } = this.props;
+    const { pathname } = routing.location;
+
+    // re-route '/' to '/one'
+    if (pathname === '/') dispatch(routeActions.push('/one'));
+  }
+
   render() {
     const { circleData } = this.props;
 
@@ -35,7 +43,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    circleData: state.circleData
+    circleData: state.circleData,
+    routing: state.routing
   };
 }
 
