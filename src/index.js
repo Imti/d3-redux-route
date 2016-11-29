@@ -5,7 +5,7 @@ import './index.css';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Router, Route, useRouterHistory } from 'react-router';
+import { Router, Route, IndexRedirect, useRouterHistory } from 'react-router';
 import { syncHistory, routeReducer, UPDATE_LOCATION } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import createHashHistory from 'history/lib/createHashHistory';
@@ -97,6 +97,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App}>
+          <IndexRedirect to="/one" />
           <Route path="/one" components={{ main: Circles, side: OneList }} />
           <Route path="/two" components={{ main: Circles }} />
           <Route path="/three" components={{ main: Circles }} />
