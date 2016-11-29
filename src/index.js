@@ -13,6 +13,7 @@ import createHashHistory from 'history/lib/createHashHistory';
 // routes
 import Circles from './Circles/Circles.js';
 import OneList from './OneList/OneList.js';
+import FourList from './FourList/FourList.js';
 
 // initial circle data
 function getInitialState() {
@@ -63,7 +64,7 @@ function circleDataReducer(state = getInitialState(), action) {
   switch (action.type) {
     case UPDATE_LOCATION:
       const { pathname } = action.payload;
-      return circleDataMap[pathname];
+      return circleDataMap[pathname] || state;
     default:
       return state;
   }
@@ -99,6 +100,7 @@ ReactDOM.render(
           <Route path="/one" components={{ main: Circles, side: OneList }} />
           <Route path="/two" components={{ main: Circles }} />
           <Route path="/three" components={{ main: Circles }} />
+          <Route path="/four" components={{ main: FourList }} />
         </Route>
       </Router>
     </Provider>

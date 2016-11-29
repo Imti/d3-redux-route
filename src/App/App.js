@@ -28,6 +28,7 @@ class App extends Component {
         <button onClick={this.navigateTo('one')}>View 1</button>
         <button onClick={this.navigateTo('two')}>View 2</button>
         <button onClick={this.navigateTo('three')}>View 3</button>
+        <button onClick={this.navigateTo('four')}>View 4</button>
         { main }
         { side }
       </div>
