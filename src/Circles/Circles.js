@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Circles.css';
 
+import { connect } from 'react-redux';
 import d3 from 'd3';
 
 class Circles extends Component {
@@ -12,11 +13,11 @@ class Circles extends Component {
 
   componentDidMount() {
     this._svg = d3.select('svg');
-    this.updateCircles(this.props.data);
+    this.updateCircles(this.props.circleData);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateCircles(nextProps.data);
+    this.updateCircles(nextProps.circleData);
   }
 
   updateCircles(data) {
@@ -45,4 +46,8 @@ class Circles extends Component {
   }
 }
 
-export default Circles;
+function mapStateToProps(state) {
+  return { circleData: state.circleData };
+}
+
+export default connect(mapStateToProps)(Circles);

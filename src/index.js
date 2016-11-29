@@ -10,6 +10,10 @@ import { syncHistory, routeReducer, UPDATE_LOCATION } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import createHashHistory from 'history/lib/createHashHistory';
 
+// routes
+import Circles from './Circles/Circles.js';
+import OneList from './OneList/OneList.js';
+
 // initial circle data
 function getInitialState() {
   return [
@@ -91,10 +95,11 @@ ReactDOM.render(
   (
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={App}></Route>
-        <Route path="one" component={App}></Route>
-        <Route path="two" component={App}></Route>
-        <Route path="three" component={App}></Route>
+        <Route path="/" component={App}>
+          <Route path="/one" components={{ main: Circles, side: OneList }} />
+          <Route path="/two" components={{ main: Circles }} />
+          <Route path="/three" components={{ main: Circles }} />
+        </Route>
       </Router>
     </Provider>
   ),
