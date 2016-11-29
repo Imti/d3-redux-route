@@ -6,7 +6,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Router, Route, useRouterHistory } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
+import { syncHistory, routeReducer, UPDATE_LOCATION } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import createHashHistory from 'history/lib/createHashHistory';
 
@@ -53,9 +53,9 @@ const circleDataMap = {
 };
 
 // main reducer, right now only holds circleData
-function reducer(state = getInitialState(), action) {
+function circleDataReducer(state = getInitialState(), action) {
   switch (action.type) {
-    case '@@router/UPDATE_LOCATION':
+    case UPDATE_LOCATION:
       const route = action.payload.pathname;
       return circleDataMap[route];
     default:
@@ -64,7 +64,7 @@ function reducer(state = getInitialState(), action) {
 }
 
 // Sets up the redux router middleware
-var history = useRouterHistory(createHashHistory /* do we need this? */ )({
+var history = useRouterHistory(createHashHistory)({
   queryKey: false, // what does this do?
 });
 const router = syncHistory(history);
@@ -73,24 +73,17 @@ const router = syncHistory(history);
 const logger = createLogger();
 
 const store = createStore(
-  /* reducer,*/
-
-  // TODO: add routing reducer
+  // combine all the redux reducers
   combineReducers({
-    circleData: reducer,
+    circleData: circleDataReducer,
     routing: routeReducer
   }),
-
+  // apply all the redux middleware
   applyMiddleware(
     logger,
     router
   )
 );
-
-// TODO: is this necessary?
-store.subscribe(() => {
-  console.log('STORE STATE', store.getState());
-});
 
 ReactDOM.render(
   (
